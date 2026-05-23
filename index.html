@@ -27,7 +27,12 @@
             --gradient-3: #ec4899;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-primary);
@@ -36,8 +41,14 @@
             overflow-x: hidden;
         }
 
+        /* Animated Background */
         .bg-animation {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             background: 
                 radial-gradient(ellipse at 20% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
@@ -45,10 +56,22 @@
         }
 
         .floating-orbs {
-            position: fixed; width: 100%; height: 100%; z-index: -1;
-            overflow: hidden; pointer-events: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
         }
-        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4; animation: float 20s infinite ease-in-out; }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+        }
+
         .orb-1 { width: 400px; height: 400px; background: var(--gradient-1); top: -100px; left: -100px; animation-delay: 0s; }
         .orb-2 { width: 300px; height: 300px; background: var(--gradient-2); bottom: -50px; right: -50px; animation-delay: -5s; }
         .orb-3 { width: 250px; height: 250px; background: var(--gradient-3); top: 50%; left: 50%; animation-delay: -10s; }
@@ -59,156 +82,530 @@
             66% { transform: translate(-20px, 20px) scale(0.9); }
         }
 
+        /* Header */
         header {
             padding: 1.5rem 2rem;
             background: var(--bg-glass);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-glass);
-            position: sticky; top: 0; z-index: 100;
-            display: flex; justify-content: space-between; align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 800; font-size: 1.25rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            font-size: 1.25rem;
             background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             -webkit-text-fill-color: white;
         }
 
-        .lang-switcher { display: flex; gap: 0.5rem; background: var(--bg-secondary); padding: 0.25rem;
-            border-radius: 10px; border: 1px solid var(--border-glass);
-        }
-        .lang-btn { padding: 0.5rem 1rem; border: none; background: transparent; color: var(--text-secondary);
-            cursor: pointer; border-radius: 8px; font-weight: 600; font-size: 0.875rem; transition: all 0.3s;
-        }
-        .lang-btn.active { background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            color: white; box-shadow: 0 4px 15px var(--accent-glow);
-        }
-        .lang-btn:hover:not(.active) { color: var(--text-primary); background: rgba(255,255,255,0.05); }
-
-        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
-
-        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
-
-        .search-box { position: relative; }
-        .search-box input { width: 100%; padding: 1rem 1rem 1rem 3rem; background: var(--bg-glass);
-            border: 1px solid var(--border-glass); border-radius: 16px; color: var(--text-primary);
-            font-size: 0.95rem; outline: none; transition: all 0.3s; backdrop-filter: blur(10px);
-        }
-        .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-        .search-box::before { content: "🔍"; position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); font-size: 1.1rem; }
-
-        .index-list { display: flex; flex-direction: column; gap: 0.5rem; }
-        .index-card { padding: 1rem 1.25rem; background: var(--bg-glass); border: 1px solid var(--border-glass);
-            border-radius: 14px; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(10px); position: relative; overflow: hidden;
-        }
-        .index-card::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 3px;
-            background: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2)); opacity: 0; transition: opacity 0.3s;
-        }
-        .index-card:hover { transform: translateX(5px); border-color: rgba(56, 189, 248, 0.3); background: rgba(30, 41, 59, 0.9); }
-        .index-card:hover::before { opacity: 1; }
-        .index-card.active { background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1));
-            border-color: var(--accent); box-shadow: 0 4px 20px var(--accent-glow);
-        }
-        .index-card.active::before { opacity: 1; }
-        .index-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text-primary); }
-        .index-card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
-        .index-badge { display: inline-block; padding: 0.2rem 0.5rem; background: rgba(56, 189, 248, 0.15);
-            color: var(--accent); border-radius: 6px; font-size: 0.7rem; font-weight: 700; margin-top: 0.5rem; letter-spacing: 0.05em;
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-secondary);
+            padding: 0.25rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-glass);
         }
 
-        .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
-        .content-panel { background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: 20px;
-            padding: 2rem; backdrop-filter: blur(20px); animation: fadeIn 0.5s ease-out;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .panel-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-        .panel-title { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, var(--text-primary), var(--accent));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .panel-subtitle { color: var(--text-secondary); margin-top: 0.5rem; font-size: 1rem; }
-
-        .formula-box { background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1));
-            border: 1px solid var(--border-glass); border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0;
-            text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: var(--accent); position: relative; overflow: hidden;
-        }
-        .formula-box::before { content: 'ƒ'; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
-            font-size: 3rem; opacity: 0.1; color: var(--accent);
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s;
         }
 
-        .code-section { margin: 1.5rem 0; }
-        .code-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
-        .code-label { font-weight: 600; color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
-        .copy-btn { padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass);
-            color: var(--text-secondary); border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: 600;
-            transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem;
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: white;
+            box-shadow: 0 4px 15px var(--accent-glow);
         }
-        .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
-        .copy-btn.copied { background: var(--success); color: white; border-color: var(--success); }
 
-        pre { background: #0d1117 !important; border-radius: 12px; border: 1px solid var(--border-glass); margin: 0 !important; }
-        code { font-family: 'JetBrains Mono', monospace !important; font-size: 0.9rem !important; line-height: 1.6 !important; }
-
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-        .info-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass); border-radius: 14px;
-            padding: 1.25rem; transition: all 0.3s;
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.05);
         }
-        .info-card:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
-        .info-card h4 { color: var(--accent); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
-            margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;
-        }
-        .info-card p, .info-card ul { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
-        .info-card ul { list-style: none; padding: 0; }
-        .info-card li { padding: 0.35rem 0; padding-left: 1.25rem; position: relative; }
-        .info-card li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
 
-        .scale-container { margin: 1.5rem 0; }
-        .scale-bar { height: 40px; border-radius: 10px; position: relative; overflow: hidden; margin-bottom: 1rem; }
+        /* Main Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+        }
+
+        .index-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .index-card {
+            padding: 1rem 1.25rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .index-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--gradient-1), var(--gradient-2));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .index-card:hover {
+            transform: translateX(5px);
+            border-color: rgba(56, 189, 248, 0.3);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .index-card:hover::before {
+            opacity: 1;
+        }
+
+        .index-card.active {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1));
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .index-card.active::before {
+            opacity: 1;
+        }
+
+        .index-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .index-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .index-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .content-panel {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .panel-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .panel-subtitle {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .formula-box::before {
+            content: 'ƒ';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            opacity: 0.1;
+            color: var(--accent);
+        }
+
+        /* Code Blocks */
+        .code-section {
+            margin: 1.5rem 0;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .code-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+            color: white;
+            border-color: var(--success);
+        }
+
+        pre {
+            background: #0d1117 !important;
+            border-radius: 12px;
+            border: 1px solid var(--border-glass);
+            margin: 0 !important;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 0.9rem !important;
+            line-height: 1.6 !important;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .info-card:hover {
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-2px);
+        }
+
+        .info-card h4 {
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card p, .info-card ul {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-card li {
+            padding: 0.35rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .info-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Interpretation Scale */
+        .scale-container {
+            margin: 1.5rem 0;
+        }
+
+        .scale-bar {
+            height: 40px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
         .scale-ndvi { background: linear-gradient(to right, #313695, #4575b4, #74add1, #abd9e9, #e0f3f8, #fee090, #fdae61, #f46d43, #d73027, #a50026); }
         .scale-ndwi { background: linear-gradient(to right, #a50026, #f46d43, #fdae61, #fee090, #e0f3f8, #abd9e9, #74add1, #4575b4); }
         .scale-ndbi { background: linear-gradient(to right, #2d5016, #4a7c2e, #8fbc45, #d4e157, #ffeb3b, #ff9800, #f44336, #b71c1c); }
         .scale-generic { background: linear-gradient(to right, var(--gradient-1), var(--gradient-2), var(--gradient-3)); }
-        .scale-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
 
-        .chat-container { background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: 20px;
-            padding: 1.5rem; backdrop-filter: blur(20px); margin-top: 1rem;
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
         }
-        .chat-messages { max-height: 300px; overflow-y: auto; margin-bottom: 1rem;
-            display: flex; flex-direction: column; gap: 1rem;
-        }
-        .message { padding: 1rem 1.25rem; border-radius: 14px; max-width: 85%; animation: slideIn 0.3s ease-out; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-        .message-user { background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2)); align-self: flex-end; color: white; }
-        .message-ai { background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); align-self: flex-start; color: var(--text-primary); }
 
-        .chat-input-area { display: flex; gap: 0.75rem; }
-        .chat-input { flex: 1; padding: 1rem 1.25rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass);
-            border-radius: 14px; color: var(--text-primary); font-size: 0.95rem; outline: none; transition: all 0.3s;
+        /* Chat Interface */
+        .chat-container {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            margin-top: 1rem;
         }
-        .chat-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-        .chat-send { padding: 1rem 1.5rem; background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-            border: none; border-radius: 14px; color: white; font-weight: 700; cursor: pointer;
-            transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem;
-        }
-        .chat-send:hover { transform: scale(1.05); box-shadow: 0 4px 20px var(--accent-glow); }
 
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            padding: 1rem 1.25rem;
+            border-radius: 14px;
+            max-width: 85%;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .message-user {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            align-self: flex-end;
+            color: white;
+        }
+
+        .message-ai {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-glass);
+            align-self: flex-start;
+            color: var(--text-primary);
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .chat-send {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        /* Responsive */
         @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-            .sidebar { order: 2; } .main-content { order: 1; }
-            header { flex-direction: column; gap: 1rem; }
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                order: 2;
+            }
+            .main-content {
+                order: 1;
+            }
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--bg-secondary); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
 
         .hidden { display: none !important; }
     </style>
-<base target="_blank">
 </head>
 <body>
     <div class="bg-animation"></div>
@@ -224,16 +621,16 @@
             <span>Spectral Index Expert AI</span>
         </div>
         <div class="lang-switcher">
-            <button class="lang-btn active" data-lang="uz" onclick="window.app.setLang('uz')">UZ</button>
-            <button class="lang-btn" data-lang="en" onclick="window.app.setLang('en')">EN</button>
-            <button class="lang-btn" data-lang="ru" onclick="window.app.setLang('ru')">RU</button>
+            <button class="lang-btn active" data-lang="uz" onclick="setLang('uz')">UZ</button>
+            <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
         </div>
     </header>
 
     <div class="container">
         <aside class="sidebar">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Indeks qidirish..." onkeyup="window.app.searchIndices()">
+                <input type="text" id="searchInput" placeholder="Indeks qidirish..." onkeyup="searchIndices()">
             </div>
             <div class="index-list" id="indexList"></div>
         </aside>
@@ -262,7 +659,7 @@
                     </div>
                 </div>
 
-                <div class="info-grid" id="infoGrid">
+                <div class="info-grid">
                     <div class="info-card">
                         <h4>📡 Kanallar</h4>
                         <ul id="bandsList">
@@ -291,7 +688,7 @@
                 <div class="code-section">
                     <div class="code-header">
                         <span class="code-label">🛰️ GEE JavaScript</span>
-                        <button class="copy-btn" id="copyJsBtn" onclick="window.app.copyCode('jsCode')">📋 Nusxa olish</button>
+                        <button class="copy-btn" onclick="copyCode('jsCode')">📋 Nusxa olish</button>
                     </div>
                     <pre><code class="language-javascript" id="jsCode">var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');</code></pre>
                 </div>
@@ -299,7 +696,7 @@
                 <div class="code-section">
                     <div class="code-header">
                         <span class="code-label">🐍 GEE Python</span>
-                        <button class="copy-btn" id="copyPyBtn" onclick="window.app.copyCode('pyCode')">📋 Nusxa olish</button>
+                        <button class="copy-btn" onclick="copyCode('pyCode')">📋 Nusxa olish</button>
                     </div>
                     <pre><code class="language-python" id="pyCode">ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI')</code></pre>
                 </div>
@@ -313,31 +710,21 @@
                     </div>
                 </div>
                 <div class="chat-input-area">
-                    <input type="text" class="chat-input" id="chatInput" placeholder="Savolingizni yozing..." onkeypress="if(event.key==='Enter')window.app.sendChat()">
-                    <button class="chat-send" onclick="window.app.sendChat()">➤</button>
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Savolingizni yozing..." onkeypress="handleChatKey(event)">
+                    <button class="chat-send" onclick="sendChat()">➤</button>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-    // Wrap everything in an IIFE to avoid global scope pollution, but expose app object
-    (function() {
-        'use strict';
-
         // Knowledge Base
-        var knowledgeBase = {
+        const knowledgeBase = {
             "NDVI": {
                 "names": { "uz": "Normalizlangan Vegetatsiya Indeksi", "en": "Normalized Difference Vegetation Index", "ru": "Нормализованный вегетационный индекс" },
                 "formula": "(NIR - Red) / (NIR + Red)",
-                "js": "var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
-// Landsat 8: B4=Red, B5=NIR
-// Visualize:
-Map.addLayer(ndvi, {min: -1, max: 1, palette: ['blue', 'white', 'green']}, 'NDVI');",
-                "py": "ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI')
-# Landsat 8: B4=Red, B5=NIR
-# Visualize:
-Map.addLayer(ndvi, {'min': -1, 'max': 1, 'palette': ['blue', 'white', 'green']}, 'NDVI')",
+                "js": "var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');\n// Landsat 8: B4=Red, B5=NIR\n// Visualize:\nMap.addLayer(ndvi, {min: -1, max: 1, palette: ['blue', 'white', 'green']}, 'NDVI');",
+                "py": "ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI')\n# Landsat 8: B4=Red, B5=NIR\n# Visualize:\nMap.addLayer(ndvi, {'min': -1, 'max': 1, 'palette': ['blue', 'white', 'green']}, 'NDVI')",
                 "bands": { "Landsat 8": "B4=Red, B5=NIR", "Landsat 7": "B3=Red, B4=NIR", "Sentinel-2": "B4=Red, B8=NIR", "MODIS": "B1=Red, B2=NIR" },
                 "interp": {
                     "uz": "-1.0 dan 0.0: Suv/bulut/qor | 0.0-0.2: Vegetatsiyasiz | 0.2-0.4: Xira o'tlar | 0.4-0.6: O'rtacha | 0.6-0.8: Zich | 0.8-1.0: Tropik o'rmon",
@@ -352,10 +739,8 @@ Map.addLayer(ndvi, {'min': -1, 'max': 1, 'palette': ['blue', 'white', 'green']},
             "NDWI": {
                 "names": { "uz": "Normalizlangan Suv Indeksi (McFeeters)", "en": "Normalized Difference Water Index", "ru": "Нормализованный водный индекс" },
                 "formula": "(Green - NIR) / (Green + NIR)",
-                "js": "var ndwi = image.normalizedDifference(['B3', 'B5']).rename('NDWI');
-// Landsat 8: B3=Green, B5=NIR",
-                "py": "ndwi = image.normalizedDifference(['B3', 'B5']).rename('NDWI')
-# Landsat 8: B3=Green, B5=NIR",
+                "js": "var ndwi = image.normalizedDifference(['B3', 'B5']).rename('NDWI');\n// Landsat 8: B3=Green, B5=NIR",
+                "py": "ndwi = image.normalizedDifference(['B3', 'B5']).rename('NDWI')\n# Landsat 8: B3=Green, B5=NIR",
                 "bands": { "Landsat 8": "B3=Green, B5=NIR", "Sentinel-2": "B3=Green, B8=NIR" },
                 "interp": {
                     "uz": "-1.0-0.0: Vegetatsiya/quruq yer | 0.0-0.3: Nam/botqoq | 0.3-1.0: Ochiq suv",
@@ -370,10 +755,8 @@ Map.addLayer(ndvi, {'min': -1, 'max': 1, 'palette': ['blue', 'white', 'green']},
             "MNDWI": {
                 "names": { "uz": "Modifikatsiyalangan Suv Indeksi", "en": "Modified NDWI", "ru": "Модифицированный водный индекс" },
                 "formula": "(Green - SWIR1) / (Green + SWIR1)",
-                "js": "var mndwi = image.normalizedDifference(['B3', 'B6']).rename('MNDWI');
-// Landsat 8: B3=Green, B6=SWIR1",
-                "py": "mndwi = image.normalizedDifference(['B3', 'B6']).rename('MNDWI')
-# Landsat 8: B3=Green, B6=SWIR1",
+                "js": "var mndwi = image.normalizedDifference(['B3', 'B6']).rename('MNDWI');\n// Landsat 8: B3=Green, B6=SWIR1",
+                "py": "mndwi = image.normalizedDifference(['B3', 'B6']).rename('MNDWI')\n# Landsat 8: B3=Green, B6=SWIR1",
                 "bands": { "Landsat 8": "B3=Green, B6=SWIR1", "Sentinel-2": "B3=Green, B11=SWIR1" },
                 "interp": {
                     "uz": "MNDWI > 0: Suv | MNDWI < 0: Vegetatsiya/yer. Shahar suvlarida NDWI dan aniqroq.",
@@ -388,10 +771,8 @@ Map.addLayer(ndvi, {'min': -1, 'max': 1, 'palette': ['blue', 'white', 'green']},
             "NDBI": {
                 "names": { "uz": "Normalizlangan Bino Indeksi", "en": "Normalized Difference Built-up Index", "ru": "Индекс застройки" },
                 "formula": "(SWIR1 - NIR) / (SWIR1 + NIR)",
-                "js": "var ndbi = image.normalizedDifference(['B6', 'B5']).rename('NDBI');
-// Landsat 8: B6=SWIR1, B5=NIR",
-                "py": "ndbi = image.normalizedDifference(['B6', 'B5']).rename('NDBI')
-# Landsat 8: B6=SWIR1, B5=NIR",
+                "js": "var ndbi = image.normalizedDifference(['B6', 'B5']).rename('NDBI');\n// Landsat 8: B6=SWIR1, B5=NIR",
+                "py": "ndbi = image.normalizedDifference(['B6', 'B5']).rename('NDBI')\n# Landsat 8: B6=SWIR1, B5=NIR",
                 "bands": { "Landsat 8": "B6=SWIR1, B5=NIR", "Sentinel-2": "B11=SWIR1, B8=NIR" },
                 "interp": {
                     "uz": "-1.0-0.0: Vegetatsiya/suv | 0.0-0.2: Aralash | 0.2-0.5: Bino/shahar | 0.5-1.0: Zich beton",
@@ -406,18 +787,8 @@ Map.addLayer(ndvi, {'min': -1, 'max': 1, 'palette': ['blue', 'white', 'green']},
             "EVI": {
                 "names": { "uz": "Kengaytirilgan Vegetatsiya Indeksi", "en": "Enhanced Vegetation Index", "ru": "Усиленный вегетационный индекс" },
                 "formula": "2.5 * ((NIR - Red) / (NIR + 6*Red - 7.5*Blue + 1))",
-                "js": "var evi = image.expression(
-    '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', {
-    'NIR': image.select('B5'),
-    'RED': image.select('B4'),
-    'BLUE': image.select('B2')
-}).rename('EVI');",
-                "py": "evi = image.expression(
-    '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', {
-    'NIR': image.select('B5'),
-    'RED': image.select('B4'),
-    'BLUE': image.select('B2')
-}).rename('EVI')",
+                "js": "var evi = image.expression(\n    '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', {\n    'NIR': image.select('B5'),\n    'RED': image.select('B4'),\n    'BLUE': image.select('B2')\n}).rename('EVI');",
+                "py": "evi = image.expression(\n    '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', {\n    'NIR': image.select('B5'),\n    'RED': image.select('B4'),\n    'BLUE': image.select('B2')\n}).rename('EVI')",
                 "bands": { "Landsat 8": "B2=Blue, B4=Red, B5=NIR" },
                 "interp": {
                     "uz": "-1.0 dan 1.0 gacha. NDVI dan ko'ra yaxshiroq tropik va zich o'simliklarni ajratadi.",
@@ -432,20 +803,8 @@ Map.addLayer(ndvi, {'min': -1, 'max': 1, 'palette': ['blue', 'white', 'green']},
             "SAVI": {
                 "names": { "uz": "Tuproqni hisobga oluvchi Vegetatsiya Indeksi", "en": "Soil Adjusted Vegetation Index", "ru": "Вегетационный индекс с поправкой на почву" },
                 "formula": "((1 + L) * (NIR - Red)) / (NIR + Red + L)",
-                "js": "var L = 0.5;
-var savi = image.expression(
-    '(1 + L) * (NIR - RED) / (NIR + RED + L)', {
-    'NIR': image.select('B5'),
-    'RED': image.select('B4'),
-    'L': L
-}).rename('SAVI');",
-                "py": "L = 0.5
-savi = image.expression(
-    '(1 + L) * (NIR - RED) / (NIR + RED + L)', {
-    'NIR': image.select('B5'),
-    'RED': image.select('B4'),
-    'L': L
-}).rename('SAVI')",
+                "js": "var L = 0.5;\nvar savi = image.expression(\n    '(1 + L) * (NIR - RED) / (NIR + RED + L)', {\n    'NIR': image.select('B5'),\n    'RED': image.select('B4'),\n    'L': L\n}).rename('SAVI');",
+                "py": "L = 0.5\nsavi = image.expression(\n    '(1 + L) * (NIR - RED) / (NIR + RED + L)', {\n    'NIR': image.select('B5'),\n    'RED': image.select('B4'),\n    'L': L\n}).rename('SAVI')",
                 "bands": { "Landsat 8": "B4=Red, B5=NIR" },
                 "interp": {
                     "uz": "L=0.5 (o'rtacha vegetatsiya). L=0 (NDVI ga teng), L=1 (juda kam vegetatsiya).",
@@ -460,16 +819,8 @@ savi = image.expression(
             "BAI": {
                 "names": { "uz": "Yonish Indeksi", "en": "Burned Area Index", "ru": "Индекс выгоревших территорий" },
                 "formula": "1 / ((0.1 - RED)^2 + (0.06 - NIR)^2)",
-                "js": "var bai = image.expression(
-    '1.0 / ((0.1 - RED)**2 + (0.06 - NIR)**2)', {
-    'RED': image.select('B4'),
-    'NIR': image.select('B5')
-}).rename('BAI');",
-                "py": "bai = image.expression(
-    '1.0 / ((0.1 - RED)**2 + (0.06 - NIR)**2)', {
-    'RED': image.select('B4'),
-    'NIR': image.select('B5')
-}).rename('BAI')",
+                "js": "var bai = image.expression(\n    '1.0 / ((0.1 - RED)**2 + (0.06 - NIR)**2)', {\n    'RED': image.select('B4'),\n    'NIR': image.select('B5')\n}).rename('BAI');",
+                "py": "bai = image.expression(\n    '1.0 / ((0.1 - RED)**2 + (0.06 - NIR)**2)', {\n    'RED': image.select('B4'),\n    'NIR': image.select('B5')\n}).rename('BAI')",
                 "bands": { "Landsat 8": "B4=Red, B5=NIR" },
                 "interp": {
                     "uz": "Yuqori qiymatlar = kuygan hududlar. Past qiymatlar = sog'lom vegetatsiya.",
@@ -484,10 +835,8 @@ savi = image.expression(
             "NBR": {
                 "names": { "uz": "Normalizlangan Yonish Nisbati", "en": "Normalized Burn Ratio", "ru": "Нормализованное отношение выгоревших территорий" },
                 "formula": "(NIR - SWIR2) / (NIR + SWIR2)",
-                "js": "var nbr = image.normalizedDifference(['B5', 'B7']).rename('NBR');
-// Landsat 8: B5=NIR, B7=SWIR2",
-                "py": "nbr = image.normalizedDifference(['B5', 'B7']).rename('NBR')
-# Landsat 8: B5=NIR, B7=SWIR2",
+                "js": "var nbr = image.normalizedDifference(['B5', 'B7']).rename('NBR');\n// Landsat 8: B5=NIR, B7=SWIR2",
+                "py": "nbr = image.normalizedDifference(['B5', 'B7']).rename('NBR')\n# Landsat 8: B5=NIR, B7=SWIR2",
                 "bands": { "Landsat 8": "B5=NIR, B7=SWIR2" },
                 "interp": {
                     "uz": "> 0.1: Sog'lom | -0.1-0.1: Aralash | -0.5-(-0.1): Kuygan yengil | -1.0-(-0.5): Kuygan og'ir",
@@ -501,10 +850,10 @@ savi = image.expression(
             }
         };
 
-        var currentLang = 'uz';
-        var currentIndex = 'NDVI';
+        let currentLang = 'uz';
+        let currentIndex = 'NDVI';
 
-        var translations = {
+        const translations = {
             uz: {
                 searchPlaceholder: "Indeks qidirish...",
                 bandsTitle: "📡 Kanallar",
@@ -517,7 +866,7 @@ savi = image.expression(
                 copyText: "📋 Nusxa olish",
                 copiedText: "✅ Nusxa olindi!",
                 chatPlaceholder: "Savolingizni yozing...",
-                chatGreeting: "Salom! Men Spectral Index Expert AI man. Menga indeks haqida savol bering, masalan: "NDVI formulasi qanday?", "NDBI GEE kodi", "BAI haqida ma'lumot".",
+                chatGreeting: "Salom! Men Spectral Index Expert AI man. Menga indeks haqida savol bering, masalan: \"NDVI formulasi qanday?\", \"NDBI GEE kodi\", \"BAI haqida ma'lumot\".",
                 notFound: "Indeks topilmadi. Mavjud indekslar: NDVI, NDWI, MNDWI, NDBI, EVI, SAVI, BAI, NBR."
             },
             en: {
@@ -532,7 +881,7 @@ savi = image.expression(
                 copyText: "📋 Copy",
                 copiedText: "✅ Copied!",
                 chatPlaceholder: "Type your question...",
-                chatGreeting: "Hello! I'm Spectral Index Expert AI. Ask me about any index, e.g.: "NDVI formula", "NDBI GEE code", "BAI info".",
+                chatGreeting: "Hello! I'm Spectral Index Expert AI. Ask me about any index, e.g.: \"NDVI formula\", \"NDBI GEE code\", \"BAI info\".",
                 notFound: "Index not found. Available: NDVI, NDWI, MNDWI, NDBI, EVI, SAVI, BAI, NBR."
             },
             ru: {
@@ -547,62 +896,68 @@ savi = image.expression(
                 copyText: "📋 Копировать",
                 copiedText: "✅ Скопировано!",
                 chatPlaceholder: "Введите вопрос...",
-                chatGreeting: "Привет! Я Spectral Index Expert AI. Спросите меня об индексе, например: "формула NDVI", "код NDBI", "информация о BAI".",
+                chatGreeting: "Привет! Я Spectral Index Expert AI. Спросите меня об индексе, например: \"формула NDVI\", \"код NDBI\", \"информация о BAI\".",
                 notFound: "Индекс не найден. Доступные: NDVI, NDWI, MNDWI, NDBI, EVI, SAVI, BAI, NBR."
             }
         };
 
         function setLang(lang) {
             currentLang = lang;
-            var btns = document.querySelectorAll('.lang-btn');
-            for (var i = 0; i < btns.length; i++) {
-                btns[i].classList.toggle('active', btns[i].getAttribute('data-lang') === lang);
-            }
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
             document.getElementById('searchInput').placeholder = translations[lang].searchPlaceholder;
             document.getElementById('chatInput').placeholder = translations[lang].chatPlaceholder;
+            
+            // Update greeting message
+            const chatMessages = document.getElementById('chatMessages');
+            if (chatMessages.children.length === 1 && chatMessages.children[0].classList.contains('message-ai')) {
+                chatMessages.children[0].textContent = translations[lang].chatGreeting;
+            }
+            
             renderIndexList();
             showIndex(currentIndex);
         }
 
         function renderIndexList() {
-            var list = document.getElementById('indexList');
-            var search = document.getElementById('searchInput').value.toLowerCase();
+            const list = document.getElementById('indexList');
+            const search = document.getElementById('searchInput').value.toLowerCase();
             list.innerHTML = '';
 
-            var indices = Object.keys(knowledgeBase);
-            for (var i = 0; i < indices.length; i++) {
-                var idx = indices[i];
-                var data = knowledgeBase[idx];
-                var name = data.names[currentLang];
-                if (search && idx.toLowerCase().indexOf(search) === -1 && name.toLowerCase().indexOf(search) === -1) continue;
+            Object.keys(knowledgeBase).forEach(idx => {
+                const data = knowledgeBase[idx];
+                const name = data.names[currentLang];
+                if (search && !idx.toLowerCase().includes(search) && !name.toLowerCase().includes(search)) return;
 
-                var card = document.createElement('div');
-                card.className = 'index-card ' + (idx === currentIndex ? 'active' : '');
-                card.onclick = (function(indexKey) {
-                    return function() { showIndex(indexKey); };
-                })(idx);
-                card.innerHTML = '<h3>' + idx + '</h3><p>' + name + '</p><span class="index-badge">GEE READY</span>';
+                const card = document.createElement('div');
+                card.className = `index-card ${idx === currentIndex ? 'active' : ''}`;
+                card.onclick = () => showIndex(idx);
+                card.innerHTML = `
+                    <h3>${idx}</h3>
+                    <p>${name}</p>
+                    <span class="index-badge">GEE READY</span>
+                `;
                 list.appendChild(card);
-            }
+            });
         }
 
         function showIndex(idx) {
             currentIndex = idx;
-            var data = knowledgeBase[idx];
-            var t = translations[currentLang];
+            const data = knowledgeBase[idx];
+            const t = translations[currentLang];
 
             document.getElementById('detailTitle').textContent = idx;
             document.getElementById('detailSubtitle').textContent = data.names[currentLang];
             document.getElementById('formulaBox').textContent = data.formula;
 
-            var bandsList = document.getElementById('bandsList');
+            // Bands
+            const bandsList = document.getElementById('bandsList');
             bandsList.innerHTML = '';
-            var bandEntries = Object.entries(data.bands);
-            for (var i = 0; i < bandEntries.length; i++) {
-                var li = document.createElement('li');
-                li.textContent = bandEntries[i][0] + ': ' + bandEntries[i][1];
+            Object.entries(data.bands).forEach(([sat, bands]) => {
+                const li = document.createElement('li');
+                li.textContent = `${sat}: ${bands}`;
                 bandsList.appendChild(li);
-            }
+            });
 
             document.getElementById('interpText').textContent = data.interp[currentLang];
             document.getElementById('appText').textContent = data.app[currentLang];
@@ -612,190 +967,140 @@ savi = image.expression(
             document.getElementById('jsCode').textContent = data.js;
             document.getElementById('pyCode').textContent = data.py;
 
-            var scaleBar = document.querySelector('.scale-bar');
-            scaleBar.className = 'scale-bar scale-' + data.scale;
+            // Update scale
+            const scaleBar = document.querySelector('.scale-bar');
+            scaleBar.className = `scale-bar scale-${data.scale}`;
 
-            var infoCards = document.querySelectorAll('.info-card h4');
-            if (infoCards.length >= 5) {
-                infoCards[0].textContent = t.bandsTitle;
-                infoCards[1].textContent = t.interpTitle;
-                infoCards[2].textContent = t.appTitle;
-                infoCards[3].textContent = t.advTitle;
-                infoCards[4].textContent = t.disTitle;
-            }
+            // Update labels
+            document.querySelectorAll('.info-card h4')[0].textContent = t.bandsTitle;
+            document.querySelectorAll('.info-card h4')[1].textContent = t.interpTitle;
+            document.querySelectorAll('.info-card h4')[2].textContent = t.appTitle;
+            document.querySelectorAll('.info-card h4')[3].textContent = t.advTitle;
+            document.querySelectorAll('.info-card h4')[4].textContent = t.disTitle;
 
-            var codeLabels = document.querySelectorAll('.code-label');
-            if (codeLabels.length >= 2) {
-                codeLabels[0].textContent = t.jsLabel;
-                codeLabels[1].textContent = t.pyLabel;
-            }
-
-            var copyBtns = document.querySelectorAll('.copy-btn');
-            for (var i = 0; i < copyBtns.length; i++) {
-                copyBtns[i].textContent = t.copyText;
-            }
+            document.querySelectorAll('.code-label')[0].textContent = t.jsLabel;
+            document.querySelectorAll('.code-label')[1].textContent = t.pyLabel;
+            document.querySelectorAll('.copy-btn').forEach(btn => btn.textContent = t.copyText);
 
             renderIndexList();
-            if (window.hljs) {
-                window.hljs.highlightAll();
-            }
+            
+            // Re-highlight all code blocks
+            setTimeout(() => {
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            }, 0);
         }
 
         function copyCode(id) {
-            var code = document.getElementById(id).textContent;
-            var btn = event.target;
-            var t = translations[currentLang];
-
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(code).then(function() {
-                    btn.textContent = t.copiedText;
-                    btn.classList.add('copied');
-                    setTimeout(function() {
-                        btn.textContent = t.copyText;
-                        btn.classList.remove('copied');
-                    }, 2000);
-                }).catch(function() {
-                    // Fallback
-                    fallbackCopy(code, btn, t);
-                });
-            } else {
-                fallbackCopy(code, btn, t);
-            }
-        }
-
-        function fallbackCopy(text, btn, t) {
-            var textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            textarea.style.opacity = '0';
-            document.body.appendChild(textarea);
-            textarea.select();
-            try {
-                document.execCommand('copy');
-                btn.textContent = t.copiedText;
+            const code = document.getElementById(id).textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = event.target;
+                const original = btn.textContent;
+                btn.textContent = translations[currentLang].copiedText;
                 btn.classList.add('copied');
-                setTimeout(function() {
-                    btn.textContent = t.copyText;
+                setTimeout(() => {
+                    btn.textContent = translations[currentLang].copyText;
                     btn.classList.remove('copied');
                 }, 2000);
-            } catch (err) {
-                console.error('Copy failed', err);
-            }
-            document.body.removeChild(textarea);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                alert('Copy failed. Please try again.');
+            });
         }
 
         function searchIndices() {
             renderIndexList();
         }
 
+        function handleChatKey(e) {
+            if (e.key === 'Enter') sendChat();
+        }
+
         function sendChat() {
-            var input = document.getElementById('chatInput');
-            var msg = input.value.trim();
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
             if (!msg) return;
 
-            var messages = document.getElementById('chatMessages');
+            const messages = document.getElementById('chatMessages');
 
-            var userDiv = document.createElement('div');
+            // User message
+            const userDiv = document.createElement('div');
             userDiv.className = 'message message-user';
             userDiv.textContent = msg;
             messages.appendChild(userDiv);
 
-            var aiDiv = document.createElement('div');
+            // AI response
+            const aiDiv = document.createElement('div');
             aiDiv.className = 'message message-ai';
             aiDiv.innerHTML = generateAIResponse(msg);
             messages.appendChild(aiDiv);
 
             input.value = '';
             messages.scrollTop = messages.scrollHeight;
+
+            // Re-highlight code in chat if present
+            setTimeout(() => {
+                messages.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                });
+            }, 0);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         function generateAIResponse(query) {
-            var lower = query.toLowerCase();
-            var t = translations[currentLang];
+            const lower = query.toLowerCase();
+            const t = translations[currentLang];
 
-            var foundIndex = null;
-            var indices = Object.keys(knowledgeBase);
-            for (var i = 0; i < indices.length; i++) {
-                if (lower.indexOf(indices[i].toLowerCase()) !== -1) {
-                    foundIndex = indices[i];
-                    break;
-                }
-            }
+            // Find index
+            let foundIndex = null;
+            Object.keys(knowledgeBase).forEach(idx => {
+                if (lower.includes(idx.toLowerCase())) foundIndex = idx;
+            });
 
             if (!foundIndex) {
-                // Check for full names
-                var nameMap = {
-                    "ndvi": "NDVI", "vegetatsiya": "NDVI", "вегетационный": "NDVI",
-                    "ndwi": "NDWI", "suv": "NDWI", "водный": "NDWI",
-                    "mndwi": "MNDWI", "modifikatsiyalangan": "MNDWI",
-                    "ndbi": "NDBI", "bino": "NDBI", "застройка": "NDBI",
-                    "evi": "EVI", "kengaytirilgan": "EVI",
-                    "savi": "SAVI", "tuproq": "SAVI", "почва": "SAVI",
-                    "bai": "BAI", "yonish": "BAI", "выгоревших": "BAI",
-                    "nbr": "NBR", "yonish nisbati": "NBR"
-                };
-                var keys = Object.keys(nameMap);
-                for (var k = 0; k < keys.length; k++) {
-                    if (lower.indexOf(keys[k]) !== -1) {
-                        foundIndex = nameMap[keys[k]];
-                        break;
-                    }
-                }
+                return escapeHtml(t.notFound);
             }
 
-            if (!foundIndex) {
-                return t.notFound;
+            const data = knowledgeBase[foundIndex];
+
+            // Determine intent
+            if (lower.includes('formula') || lower.includes('formul') || lower.includes('формула') || lower.includes('tenglama')) {
+                return `<b>${escapeHtml(foundIndex)}:</b><br>📐 ${escapeHtml(data.formula)}`;
+            }
+            if (lower.includes('gee') || lower.includes('kod') || lower.includes('code') || lower.includes('код') || lower.includes('script')) {
+                return `<b>${escapeHtml(foundIndex)} GEE:</b><br><pre style="background:#0d1117;padding:10px;border-radius:8px;margin-top:8px;font-size:0.85rem;overflow-x:auto;"><code class="language-javascript">${escapeHtml(data.js)}</code></pre>`;
+            }
+            if (lower.includes('kanal') || lower.includes('band') || lower.includes('канал')) {
+                return `<b>${escapeHtml(foundIndex)} ${currentLang === 'uz' ? 'Kanallar' : currentLang === 'en' ? 'Bands' : 'Каналы'}:</b><br>` + 
+                    Object.entries(data.bands).map(([k,v]) => `• ${escapeHtml(k)}: ${escapeHtml(v)}`).join('<br>');
+            }
+            if (lower.includes('qo\'llanish') || lower.includes('application') || lower.includes('применение') || lower.includes('foydalanish')) {
+                return `<b>${escapeHtml(foundIndex)}:</b><br>🎯 ${escapeHtml(data.app[currentLang])}`;
+            }
+            if (lower.includes('afzallik') || lower.includes('advantage') || lower.includes('плюс') || lower.includes('kamchilik') || lower.includes('disadvantage') || lower.includes('минус')) {
+                return `<b>${escapeHtml(foundIndex)}:</b><br>✅ ${escapeHtml(data.adv)}<br>❌ ${escapeHtml(data.dis)}`;
             }
 
-            var data = knowledgeBase[foundIndex];
-
-            if (lower.indexOf('formula') !== -1 || lower.indexOf('formul') !== -1 || lower.indexOf('формула') !== -1 || lower.indexOf('tenglama') !== -1) {
-                return '<b>' + foundIndex + ':</b><br>📐 ' + data.formula;
-            }
-            if (lower.indexOf('gee') !== -1 || lower.indexOf('kod') !== -1 || lower.indexOf('code') !== -1 || lower.indexOf('код') !== -1 || lower.indexOf('script') !== -1) {
-                return '<b>' + foundIndex + ' GEE:</b><br><pre style="background:#0d1117;padding:10px;border-radius:8px;margin-top:8px;font-size:0.85rem;overflow-x:auto;"><code>' + data.js.replace(/</g, '&lt;') + '</code></pre>';
-            }
-            if (lower.indexOf('kanal') !== -1 || lower.indexOf('band') !== -1 || lower.indexOf('канал') !== -1) {
-                var result = '<b>' + foundIndex + ' Kanallar:</b><br>';
-                var bandEntries = Object.entries(data.bands);
-                for (var b = 0; b < bandEntries.length; b++) {
-                    result += '• ' + bandEntries[b][0] + ': ' + bandEntries[b][1] + '<br>';
-                }
-                return result;
-            }
-            if (lower.indexOf('qo\'llanish') !== -1 || lower.indexOf('application') !== -1 || lower.indexOf('применение') !== -1 || lower.indexOf('foydalanish') !== -1) {
-                return '<b>' + foundIndex + ':</b><br>🎯 ' + data.app[currentLang];
-            }
-            if (lower.indexOf('afzallik') !== -1 || lower.indexOf('advantage') !== -1 || lower.indexOf('плюс') !== -1 || lower.indexOf('kamchilik') !== -1 || lower.indexOf('disadvantage') !== -1 || lower.indexOf('минус') !== -1) {
-                return '<b>' + foundIndex + ':</b><br>✅ ' + data.adv + '<br>❌ ' + data.dis;
-            }
-
-            return '<b>' + foundIndex + ' — ' + data.names[currentLang] + '</b><br><br>' +
-                   '📐 Formula: ' + data.formula + '<br>' +
-                   '📈 ' + data.interp[currentLang] + '<br><br>' +
-                   '🎯 ' + data.app[currentLang] + '<br>' +
-                   '✅ ' + data.adv + '<br>' +
-                   '❌ ' + data.dis;
+            // Full info
+            return `<b>${escapeHtml(foundIndex)} — ${escapeHtml(data.names[currentLang])}</b><br><br>
+                    📐 Formula: ${escapeHtml(data.formula)}<br>
+                    📈 ${escapeHtml(data.interp[currentLang])}<br><br>
+                    🎯 ${escapeHtml(data.app[currentLang])}<br>
+                    ✅ ${escapeHtml(data.adv)}<br>
+                    ❌ ${escapeHtml(data.dis)}`;
         }
 
-        // Expose to global scope for HTML onclick handlers
-        window.app = {
-            setLang: setLang,
-            showIndex: showIndex,
-            copyCode: copyCode,
-            searchIndices: searchIndices,
-            sendChat: sendChat
-        };
-
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
             renderIndexList();
             showIndex('NDVI');
-            if (window.hljs) {
-                window.hljs.highlightAll();
-            }
         });
-    })();
     </script>
 </body>
 </html>
